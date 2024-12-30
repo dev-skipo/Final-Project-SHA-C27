@@ -102,3 +102,15 @@ exports.deletePage = async (req, res) => {
     }
 };
 
+
+exports.incrementViewCount = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const updatedPage = await Page.findByIdAndUpdate(id, { $inc: { viewCount: 1 } }, { new: true });
+        if (!updatedPage) return res.status(404).json({ message: 'Page not found' });
+        res.json(updatedPage); // Respond with updated view count or other relevant data
+    } catch (error) {
+        console.error("Error incrementing view count:", error);
+        res.status(500).json({ message: 'Error incrementing view count', error });
+    }
+};

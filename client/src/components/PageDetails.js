@@ -8,7 +8,20 @@ const PageDetails = () => {
 
     useEffect(() => {
         fetchPageDetails();
+        incrementPageView(); // Call function to increment view count
     }, [id]);
+    
+    const incrementPageView = async () => {
+        const token = localStorage.getItem('token');
+        try {
+            await axios.post(`http://localhost:5000/api/pages/${id}/view`, {}, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+        } catch (error) {
+            console.error("Error incrementing view count:", error.response ? error.response.data : error.message);
+        }
+    };
+    
 
     const fetchPageDetails = async () => {
         const token = localStorage.getItem('token'); // Get token from local storage

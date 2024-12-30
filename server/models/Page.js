@@ -10,6 +10,7 @@ const pageSchema = new mongoose.Schema({
     description: { type: String, required: true },
     links: [linkSchema],
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    viewCount: { type: Number, default: 0 }, // New field for tracking views
 }, { timestamps: true });
 
 const Page = mongoose.model('Page', pageSchema);

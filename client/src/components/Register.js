@@ -99,7 +99,7 @@ const Register = () => {
                                 <option value="">Select Category</option>
                                 <option value="music">Music</option>
                                 <option value="clothes">Clothes</option>
-                                <option value="sells">Sells</option>
+                                <option value="sells">Sells $</option>
                             </select>
                         </div>
                         <button type="submit" className="btn btn-primary w-100">Register</button>
