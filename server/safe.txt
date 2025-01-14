@@ -1,236 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom'; // Import Link
+import { useNavigate } from 'react-router-dom';
+import { Button, Form, ListGroup, Nav, Container, Row, Col } from 'react-bootstrap';
 
 const Dashboard = () => {
     const [pages, setPages] = useState([]);
-    const [showPopup, setShowPopup] = useState(false);
+    const [showForm, setShowForm] = useState(false);
     const [editMode, setEditMode] = useState(false);
     const [currentPageId, setCurrentPageId] = useState(null);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [links, setLinks] = useState([{ url: '', linkTitle: '' }]); // State to manage links with titles
-    const navigate = useNavigate();
+    const [links, setLinks] = useState([{ url: '', linkTitle: '' }]); // Initialize links as an array
+    const [dropdownVisible, setDropdownVisible] = useState(false);
+    const [linkType, setLinkType] = useState(null);
+    const [profilePicture, setProfilePicture] = useState(null); // State for profile picture
+    const [existingImageUrl, setExistingImageUrl] = useState(''); // State for existing image URL
 
-    useEffect(() => {
-        fetchPages();
-    }, []);
+    // New state variables for background and text color
+    const [backgroundColor, setBackgroundColor] = useState('#ffffff'); // Default background color
+    const [textColor, setTextColor] = useState('#000000'); // Default text color
 
-    const fetchPages = async () => {
-        const token = localStorage.getItem('token');
-        
-        try {
-            const response = await axios.get('http://localhost:5000/api/pages', {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            console.log("Fetched pages:", response.data); // Log fetched pages
-            setPages(response.data); // Update state with fetched pages
-        } catch (error) {
-            console.error("Error fetching pages:", error.response ? error.response.data : error.message);
-            alert("Failed to fetch pages.");
-        }
-    };
+    // State to manage active section
+    const [activeSection, setActiveSection] = useState('page');
 
-    const handleCreatePage = async () => {
-        const token = localStorage.getItem('token');
-        
-        try {
-            const response = await axios.post('http://localhost:5000/api/pages', 
-                { title, description, links }, // Include links in request body
-                { headers: { Authorization: `Bearer ${token}` } }
-            );
-            console.log("Created page response:", response.data); // Log the response
-            fetchPages(); // Refresh the list of pages after creation
-            resetForm(); // Reset form after creation
-        } catch (error) {
-            console.error("Error creating page:", error.response ? error.response.data : error.message);
-        }
-    };
-
-    const handleEditPage = async () => {
-        const token = localStorage.getItem('token');
-
-        try {
-            await axios.put(`http://localhost:5000/api/pages/${currentPageId}`, 
-                { title, description, links }, // Include links in request body
-                { headers: { Authorization: `Bearer ${token}` } }
-            );
-            fetchPages(); // Refresh the list of pages after editing
-            resetForm(); // Reset form after editing
-        } catch (error) {
-            console.error("Error updating page:", error.response ? error.response.data : error.message);
-            alert("Failed to update page.");
-        }
-    };
-
-    const handleDeletePage = async (pageId) => {
-        const token = localStorage.getItem('token');
-        
-        if (window.confirm("Are you sure you want to delete this page?")) { // Confirmation before deletion
-            try {
-                await axios.delete(`http://localhost:5000/api/pages/${pageId}`, {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
-                console.log("Deleted page:", pageId); // Log deleted page ID
-                fetchPages(); // Refresh the list of pages after deletion
-                resetForm(); // Reset form after deletion to clear inputs
-            } catch (error) {
-                console.error("Error deleting page:", error.response ? error.response.data : error.message);
-                alert("Failed to delete page.");
-            }
-        }
-    };
-
-    const resetForm = () => {
-        setTitle('');
-        setDescription('');
-        setLinks([{ url: '', linkTitle: '' }]); // Reset links state
-        setShowPopup(false);
-        setEditMode(false);
-        setCurrentPageId(null);
-    };
-
-    const handleEditButtonClick = (page) => {
-        setTitle(page.title);
-        setDescription(page.description);
-        setLinks(page.links || [{ url: '', linkTitle: '' }]); // Set existing links or initialize with an empty array
-        setCurrentPageId(page._id);
-        setEditMode(true); // Set edit mode to true
-        setShowPopup(true); // Show popup for editing
-    };
-
-    // Function to handle changes to link inputs (URL and Title)
-    const handleLinkChange = (index, field, value) => {
-        const newLinks = [...links];
-        newLinks[index][field] = value; // Update specific field based on index and field name
-        setLinks(newLinks);
-    };
-
-    // Function to add a new link input field
-    const addLinkField = () => {
-        setLinks([...links, { url: '', linkTitle: '' }]); // Add a new empty link object
-    };
-
-    // Function to move a link up in the list
-    const moveLinkUp = (index) => {
-        if (index > 0) {
-            const newLinks = [...links];
-            [newLinks[index], newLinks[index - 1]] = [newLinks[index - 1], newLinks[index]]; // Swap positions
-            setLinks(newLinks);
-        }
-    };
-
-    // Function to move a link down in the list
-    const moveLinkDown = (index) => {
-        if (index < links.length - 1) {
-            const newLinks = [...links];
-            [newLinks[index], newLinks[index + 1]] = [newLinks[index + 1], newLinks[index]]; // Swap positions
-            setLinks(newLinks);
-        }
-    };
-
-    return (
-        <div>
-            <h2>Dashboard</h2>
-            
-            {/* Conditionally render the Create Page button */}
-            {pages.length === 0 && (
-                <button onClick={() => { resetForm(); setShowPopup(true); }}>Create Page</button>
-            )}
-            
-            {showPopup && (
-                <div className="popup">
-                    <h3>{editMode ? "Edit Page" : "Create New Page"}</h3>
-                    <input 
-                        type="text" 
-                        placeholder="Title" 
-                        value={title} 
-                        onChange={(e) => setTitle(e.target.value)} 
-                        required 
-                    />
-                    <textarea 
-                        placeholder="Description" 
-                        value={description} 
-                        onChange={(e) => setDescription(e.target.value)} 
-                        required 
-                    />
-                    <h4>Links (Optional)</h4>
-                    {links.map((link, index) => (
-                        <div key={index}>
-                            <input 
-                                type="text" 
-                                placeholder="Enter link" 
-                                value={link.url} 
-                                onChange={(e) => handleLinkChange(index, 'url', e.target.value)} 
-                            />
-                            <input 
-                                type="text" 
-                                placeholder="Link Title" 
-                                value={link.linkTitle} 
-                                onChange={(e) => handleLinkChange(index, 'linkTitle', e.target.value)} 
-                            />
-                            {/* Move buttons */}
-                            <button type="button" onClick={() => moveLinkUp(index)} disabled={index === 0}>Move Up</button>
-                            <button type="button" onClick={() => moveLinkDown(index)} disabled={index === links.length - 1}>Move Down</button>
-                        </div>
-                    ))}
-                    <button type="button" onClick={addLinkField}>Add Link</button>
-                    <button onClick={editMode ? handleEditPage : handleCreatePage}>
-                        {editMode ? "Update" : "Create"}
-                    </button>
-                    <button onClick={resetForm}>Cancel</button>
-                </div>
-            )}
-
-            <div className="pages-list">
-                {Array.isArray(pages) && pages.length > 0 ? (
-                    pages.map(page => (
-                        <div key={page._id} className="page-card">
-                            {/* Make the entire card clickable */}
-                            <Link to={`/pages/${page._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                                <div>
-                                    <h4>{page.title}</h4>
-                                    <p>{page.description}</p>
-                                    {/* Display links with titles */}
-                                    {page.links.map((linkObj, idx) => (
-                                        <p key={idx}><strong>{linkObj.linkTitle || 'Link'}:</strong> {linkObj.url}</p>
-                                    ))}
-                                </div>
-                            </Link>
-                            <button onClick={() => handleEditButtonClick(page)}>Edit</button>
-                            {/* Add Delete Button */}
-                            <button onClick={() => handleDeletePage(page._id)}>Delete</button>
-                        </div>
-                    ))
-                ) : (
-                    <p>No pages available.</p> // Message when there are no pages
-                )}
-            </div>
-        </div>
-    );
-};
-
-export default Dashboard;
-
-
-
------------------------------------------------
-
-
-
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-const Dashboard = () => {
-    const [pages, setPages] = useState([]);
-    const [showPopup, setShowPopup] = useState(false);
-    const [editMode, setEditMode] = useState(false);
-    const [currentPageId, setCurrentPageId] = useState(null);
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [links, setLinks] = useState([{ url: '', linkTitle: '' }]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -243,6 +35,7 @@ const Dashboard = () => {
             const response = await axios.get('http://localhost:5000/api/pages', {
                 headers: { Authorization: `Bearer ${token}` }
             });
+            console.log("Fetched pages:", response.data);
             setPages(response.data);
         } catch (error) {
             console.error("Error fetching pages:", error.response ? error.response.data : error.message);
@@ -250,31 +43,88 @@ const Dashboard = () => {
         }
     };
 
-    const handleCreatePage = async () => {
+    const handleCreatePage = async (event) => {
+        event.preventDefault(); // Prevent default form submission
+        console.log("Creating page with:", { title, description, links, profilePicture }); // Debugging line
         const token = localStorage.getItem('token');
+        const formData = new FormData();
+        
+        // Append title and description
+        formData.append('title', title); 
+        formData.append('description', description); 
+        formData.append('backgroundColor', backgroundColor); // Add background color
+        formData.append('textColor', textColor); // Add text color
+        
+        // Filter valid links and append them as individual fields
+        const validLinks = links.filter(link => link.url && link.linkTitle); // Filter out empty links
+        console.log("Valid links:", validLinks); // Debugging line
+        validLinks.forEach((link, index) => {
+            formData.append(`links[${index}][url]`, link.url);
+            formData.append(`links[${index}][linkTitle]`, link.linkTitle);
+        });
+    
+        // Append profile picture if it exists
+        if (profilePicture) {
+            formData.append('profilePicture', profilePicture); 
+        }
+    
         try {
-            await axios.post('http://localhost:5000/api/pages', { title, description, links }, {
-                headers: { Authorization: `Bearer ${token}` }
+            // Make the POST request to create a new page
+            const response = await axios.post('http://localhost:5000/api/pages', formData, {
+                headers: { 
+                    Authorization: `Bearer ${token}`,
+                    // Do NOT set Content-Type; let axios handle it automatically
+                }
             });
-            fetchPages();
-            resetForm();
+            
+            console.log("Page created successfully:", response.data); // Log successful creation
+            fetchPages(); // Fetch updated pages list
+            resetForm(); // Reset the form fields after successful creation
         } catch (error) {
             console.error("Error creating page:", error.response ? error.response.data : error.message);
         }
     };
 
-    const handleEditPage = async () => {
+    const handleEditPage = async (event) => {
+        event.preventDefault(); // Prevent default form submission
+        console.log("Updating page with:", { title, description, links, profilePicture }); // Debugging line
         const token = localStorage.getItem('token');
+        const formData = new FormData();
+        
+        // Append title and description
+        formData.append('title', title); 
+        formData.append('description', description); 
+        formData.append('backgroundColor', backgroundColor); // Add background color
+        formData.append('textColor', textColor); // Add text color
+        
+        links.forEach((link, index) => {
+            if (link.url && link.linkTitle) {
+                formData.append(`links[${index}][url]`, link.url);
+                formData.append(`links[${index}][linkTitle]`, link.linkTitle);
+            }
+        });
+
+        if (profilePicture) {
+            formData.append('profilePicture', profilePicture); 
+        }
+
         try {
-            await axios.put(`http://localhost:5000/api/pages/${currentPageId}`, { title, description, links }, {
-                headers: { Authorization: `Bearer ${token}` }
+            await axios.put(`http://localhost:5000/api/pages/${currentPageId}`, formData, {
+                headers: { 
+                    Authorization: `Bearer ${token}`,
+                }
             });
+            console.log("Page updated successfully"); // Debugging line
             fetchPages();
             resetForm();
         } catch (error) {
             console.error("Error updating page:", error.response ? error.response.data : error.message);
             alert("Failed to update page.");
         }
+    };
+
+    const handleFileChange = (event) => {
+        setProfilePicture(event.target.files[0]); // Get the first file
     };
 
     const handleDeletePage = async (pageId) => {
@@ -296,101 +146,255 @@ const Dashboard = () => {
     const resetForm = () => {
         setTitle('');
         setDescription('');
-        setLinks([{ url: '', linkTitle: '' }]);
-        setShowPopup(false);
+        setLinks([{ url: '', linkTitle: '' }]); // Reset links state to initial value
+        setShowForm(false);
         setEditMode(false);
         setCurrentPageId(null);
+        setLinkType(null);
+        setDropdownVisible(false);
+        setProfilePicture(null); // Reset profile picture
+        setExistingImageUrl(''); // Reset existing image URL when resetting the form
+
+       // Reset color selections when resetting the form
+       setBackgroundColor('#ffffff'); 
+       setTextColor('#000000'); 
     };
 
     const handleEditButtonClick = (page) => {
-        setTitle(page.title);
-        setDescription(page.description);
-        setLinks(page.links || [{ url: '', linkTitle: '' }]);
-        setCurrentPageId(page._id);
-        setEditMode(true);
-        setShowPopup(true);
-    };
+       setTitle(page.title);
+       setDescription(page.description);
+       setLinks(page.links || [{ url: '', linkTitle: '' }]); // Set links from the selected page or reset to initial value
+       setCurrentPageId(page._id);
+       setEditMode(true);
+       setShowForm(true);
 
-    const handleLinkChange = (index, field, value) => {
-        const newLinks = [...links];
-        newLinks[index][field] = value;
-        setLinks(newLinks);
-    };
+       // Set existing image URL for displaying during edit
+       setExistingImageUrl(`http://localhost:5000/uploads/${page.profileImage || ''}`); 
 
-    const addLinkField = () => {
-        setLinks([...links, { url: '', linkTitle: '' }]);
-    };
+       // Set existing colors for editing
+       setBackgroundColor(page.backgroundColor || '#ffffff');
+       setTextColor(page.textColor || '#000000');
+   };
 
-    return (
-        <div className="container-fluid">
-            <h2 className="text-center my-4">Dashboard</h2>
-            <div className="row">
-                <div className="col-md-6">
-                    {/* Conditionally render the Create Page button */}
-                    {pages.length === 0 && (
-                        <button className="btn btn-primary mb-3" onClick={() => { resetForm(); setShowPopup(true); }}>Create Page</button>
-                    )}
-                    
-                    {showPopup && (
-                        <div className="popup border p-4 mb-4 bg-light">
-                            <h3>{editMode ? "Edit Page" : "Create New Page"}</h3>
-                            <input type="text" className="form-control mb-2" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} required />
-                            <textarea className="form-control mb-2" placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} required />
-                            <h4>Links (Optional)</h4>
-                            {links.map((link, index) => (
-                                <div key={index} className="mb-2">
-                                    <input type="text" className="form-control mb-1" placeholder="Enter link" value={link.url} onChange={(e) => handleLinkChange(index, 'url', e.target.value)} />
-                                    <input type="text" className="form-control mb-1" placeholder="Link Title" value={link.linkTitle} onChange={(e) => handleLinkChange(index, 'linkTitle', e.target.value)} />
-                                </div>
-                            ))}
-                            <button type="button" className="btn btn-secondary mb-2" onClick={addLinkField}>Add Link</button>
-                            <button className="btn btn-primary me-2" onClick={editMode ? handleEditPage : handleCreatePage}>
-                                {editMode ? "Update" : "Create"}
-                            </button>
-                            <button className="btn btn-danger" onClick={resetForm}>Cancel</button>
-                        </div>
-                    )}
+   const handleLinkChange = (index, field, value) => {
+       const newLinks = [...links];
+       newLinks[index][field] = value;
+       setLinks(newLinks);
+   };
 
-                    {/* Displaying pages as links */}
-                    <div className="pages-list">
-                        {Array.isArray(pages) && pages.length > 0 ? (
-                            pages.map(page => (
-                                <div key={page._id} className="page-card border p-3 mb-3 bg-light">
-                                    {/* Make the entire card clickable */}
-                                    <Link to={`/pages/${page._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                                        <h4>{page.title}</h4>
-                                        <p>{page.description}</p>
-                                        {/* Display links with titles */}
-                                        {page.links.map((linkObj, idx) => (
-                                            <p key={idx}><strong>{linkObj.linkTitle || 'Link'}:</strong> {linkObj.url}</p>
-                                        ))}
-                                    </Link>
-                                    {/* Edit button */}
-                                    <button className="btn btn-warning me-2" onClick={() => handleEditButtonClick(page)}>Edit</button>
-                                    {/* Delete button */}
-                                    <button className="btn btn-danger" onClick={() => handleDeletePage(page._id)}>Delete</button>
-                                </div>
-                            ))
-                        ) : (
-                            <p>No pages available.</p> // Message when there are no pages
-                        )}
-                    </div>
-                </div>
+   const addLinkField = () => {
+       if (linkType) {
+           if (linkType === 'youtube' || linkType === 'link') {
+               setLinks([...links, { url: '', linkTitle: '' }]);
+               resetLinkType();
+           }
+       }
+   };
 
-                {/* Preview Div on the right side */}
-                <div className="col-md-6">
-                    <div className="preview border p-4 bg-light">
-                        <h3>Preview</h3>
-                        <h4>{title || "Page Title"}</h4>
-                        <p>{description || "Page description will appear here."}</p>
-                        {links.map((linkObj, idx) => (
-                            <p key={idx}><strong>{linkObj.linkTitle || 'Link'}:</strong> {linkObj.url || 'URL will appear here.'}</p>
-                        ))}
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
+   const resetLinkType = () => {
+       setLinkType(null);
+       setDropdownVisible(false);
+   };
+
+   const moveLinkUp = (index) => {
+       if (index > 0) {
+           const newLinks = [...links];
+           [newLinks[index], newLinks[index - 1]] = [newLinks[index - 1], newLinks[index]];
+           setLinks(newLinks);
+       }
+   };
+
+   const moveLinkDown = (index) => {
+       if (index < links.length - 1) {
+           const newLinks = [...links];
+           [newLinks[index], newLinks[index + 1]] = [newLinks[index + 1], newLinks[index]];
+           setLinks(newLinks);
+       }
+   };
+
+   const deleteLinkField = (index) => {
+       const updatedLinks = links.filter((_, i) => i !== index);
+       setLinks(updatedLinks);
+   };
+
+   return (
+       <Container fluid className="mt-4">
+           <Row>
+               <Col md={3} className="bg-light sidebar">
+                   <h4>Dashboard</h4>
+                   <Nav className="flex-column">
+                       <Button variant="link" onClick={() => setActiveSection('page')}>Page</Button>
+                       <Button variant="link" onClick={() => setActiveSection('analytics')}>Analytics</Button>
+                       <Button variant="link" onClick={() => setActiveSection('settings')}>Page Settings</Button>
+                   </Nav>
+               </Col>
+               <Col md={9}>
+                   {activeSection === 'page' && (
+                       <div>
+                           <h2>Pages</h2>
+                           {/* List of pages */}
+                           <ListGroup className="mt-4">
+                               {Array.isArray(pages) && pages.length > 0 ? (
+                                   pages.map(page => (
+                                       <ListGroup.Item key={page._id} className="d-flex justify-content-between align-items-center">
+                                           <div>
+                                               Page link: <a href={`http://localhost:3000/pages/${page._id}`} target="_blank" rel="noopener noreferrer">{`http://localhost:3000/pages/${page._id}`}</a><br />
+                                           </div>
+                                           <div>
+                                               <Button variant="warning" className="me-2" onClick={() => handleEditButtonClick(page)}>Edit</Button>
+                                               <Button variant="danger" onClick={() => handleDeletePage(page._id)}>Delete</Button>
+                                           </div>
+                                       </ListGroup.Item>
+                                   ))
+                               ) : (
+                                   <p>No pages available.</p>
+                               )}
+                           </ListGroup>
+
+                           {/* Conditionally render the Create Page button */}
+                           {pages.length === 0 && (
+                               <Button variant="primary" onClick={() => { resetForm(); setShowForm(true); }}>Create Page</Button>
+                           )}
+                           
+                           {/* Form for creating/editing pages */}
+                           {showForm && (
+                               <div className="mb-4 p-3 border rounded bg-light">
+                                   <h3>{editMode ? "Edit Page" : "Create New Page"}</h3>
+                                   <Form onSubmit={editMode ? handleEditPage : handleCreatePage}>
+                                       <Form.Group controlId="formTitle">
+                                           <Form.Label>Title</Form.Label>
+                                           <Form.Control 
+                                               type="text" 
+                                               placeholder="Enter title" 
+                                               value={title} 
+                                               onChange={(e) => setTitle(e.target.value)} 
+                                               required 
+                                           />
+                                       </Form.Group>
+                                       <Form.Group controlId="formDescription">
+                                           <Form.Label>Description</Form.Label>
+                                           <Form.Control 
+                                               as="textarea" 
+                                               placeholder="Enter description" 
+                                               value={description} 
+                                               onChange={(e) => setDescription(e.target.value)} 
+                                               required 
+                                           />
+                                       </Form.Group>
+
+                                       {/* Background Color Picker */}
+                                       <Form.Group controlId="formBackgroundColor">
+                                           <Form.Label>Background Color</Form.Label>
+                                           <Form.Control 
+                                               type="color" 
+                                               value={backgroundColor} 
+                                               onChange={(e) => setBackgroundColor(e.target.value)} 
+                                           />
+                                       </Form.Group>
+
+                                       {/* Text Color Picker */}
+                                       <Form.Group controlId="formTextColor">
+                                           <Form.Label>Text Color</Form.Label>
+                                           <Form.Control 
+                                               type="color" 
+                                               value={textColor} 
+                                               onChange={(e) => setTextColor(e.target.value)} 
+                                           />
+                                       </Form.Group>
+
+                                       {/* Display existing image if in edit mode */}
+                                       {editMode && existingImageUrl && (
+                                           <div>
+                                               <h4>Current Image:</h4>
+                                               <img src={existingImageUrl} alt="Profile" style={{ maxWidth: '20%', height: 'auto' }} />
+                                           </div>
+                                       )}
+
+                                       <Form.Group controlId="formProfilePicture">
+                                           <Form.Label>Profile Picture</Form.Label>
+                                           <Form.Control 
+                                               type="file" 
+                                               accept="image/*"
+                                               onChange={handleFileChange} 
+                                           />
+                                       </Form.Group>
+
+                                       {/* Links section */}
+                                       <h4>Links (Optional)</h4>
+                                       {links.map((link, index) => (
+                                           <div key={index} className="mb-3">
+                                               <Form.Group controlId={`formLinkUrl${index}`}>
+                                                   <Form.Control 
+                                                       type="text" 
+                                                       placeholder="Enter link" 
+                                                       value={link.url} 
+                                                       onChange={(e) => handleLinkChange(index, 'url', e.target.value)} 
+                                                   />
+                                               </Form.Group>
+                                               <Form.Group controlId={`formLinkTitle${index}`}>
+                                                   <Form.Control 
+                                                       type="text" 
+                                                       placeholder="Link Title" 
+                                                       value={link.linkTitle} 
+                                                       onChange={(e) => handleLinkChange(index, 'linkTitle', e.target.value)} 
+                                                   />
+                                               </Form.Group>
+                                               {/* Move buttons */}
+                                               <Button variant="secondary" onClick={() => moveLinkUp(index)} disabled={index === 0}>Move Up</Button>
+                                               <Button variant="secondary" onClick={() => moveLinkDown(index)} disabled={index === links.length - 1}>Move Down</Button>
+                                               {/* Delete button */}
+                                               <Button variant="danger" onClick={() => deleteLinkField(index)}>Delete</Button>
+                                           </div>
+                                       ))}
+                                       
+                                       {/* Add Link button in Edit Mode */}
+                                       <Button variant="info" onClick={() => {setDropdownVisible(!dropdownVisible);}}>Add Link</Button>
+                                       {dropdownVisible && (
+                                           <div className="mt-2">
+                                               <Button variant="light" onClick={() => {setLinkType('youtube'); addLinkField();}}>YouTube Video</Button>
+                                               <Button variant="light" onClick={() => {setLinkType('link'); addLinkField();}}>Link</Button>
+                                           </div>
+                                       )}
+                                       
+                                       {/* Submit and Cancel buttons */}
+                                       <div className="mt-3">
+                                           {editMode ? (
+                                               <Button variant="primary" type="submit">Update</Button>
+                                           ) : (
+                                               <Button variant="primary" type="submit">Create</Button>
+                                           )}
+                                           <Button variant="secondary" className="ms-2" onClick={resetForm}>Cancel</Button>
+                                       </div>
+                                   </Form>
+                               </div>
+                           )}
+                       </div>
+                   )}
+
+                   {activeSection === 'analytics' && (
+                       <>
+                           {/* Analytics Section */}
+                           <h2>Analytics</h2>
+                           {pages.map(page => (
+                               <div key={page._id}>
+                                   Views for page '{page.title}': {page.viewCount !== undefined ? page.viewCount : '--'}
+                               </div>
+                           ))}
+                       </>
+                   )}
+
+                   {activeSection === 'settings' && (
+                       <>
+                           {/* Page Settings Section */}
+                           <h2>Page Settings</h2>
+                           {/* This section is currently empty */}
+                           <p>No settings available.</p>
+                       </>
+                   )}
+               </Col>
+           </Row>
+       </Container>
+   );
 };
 
 export default Dashboard;

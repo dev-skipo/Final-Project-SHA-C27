@@ -1,3 +1,4 @@
+// server.js
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -15,10 +16,16 @@ mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedT
 // Import routes
 const authRoutes = require('./routes/authRoutes'); // Ensure this path is correct
 const pageRoutes = require('./routes/pageRoutes'); // Ensure this path is correct
+const subscriptionRoutes = require('./routes/subscriptionRoutes'); // Import subscription routes
+
+// Serve static files from the uploads directory
+app.use('/uploads', express.static('uploads')); // Serve images from uploads folder
 
 // Use routes
 app.use('/api/auth', authRoutes); // Authentication routes
 app.use('/api/pages', pageRoutes); // Page routes
+app.use('/api/subscribe', subscriptionRoutes); // Subscription routes
+app.use('/api/subscriptions', subscriptionRoutes);
 
 // Start server
 const PORT = process.env.PORT || 5000;

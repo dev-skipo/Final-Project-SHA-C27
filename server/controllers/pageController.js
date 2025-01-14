@@ -1,28 +1,39 @@
 const Page = require('../models/Page');
+const multer = require('multer');
+const path = require('path');
 
+// Configure Multer for file uploads
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/'); // Ensure this folder exists
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname)); // Append timestamp to file name
+    }
+});
 
+const upload = multer({ storage });
+
+// Create a new page
 exports.createPage = async (req, res) => {
-    const { title, description, links } = req.body; 
+    const { title, description, backgroundColor, textColor } = req.body; 
+    const profileImage = req.file ? req.file.filename : null; // Use filename instead of path
+
+    // Parse links from req.body.links if they are sent as an array of objects
+    let links = [];
+    if (req.body.links) {
+        links = Array.isArray(req.body.links) ? req.body.links : Object.values(req.body.links);
+    }
 
     if (!title || !description) {
         return res.status(400).json({ message: 'Title and description are required.' });
     }
 
-
-    if (links && !Array.isArray(links)) {
+    if (!Array.isArray(links)) {
         return res.status(400).json({ message: 'Links must be an array.' });
     }
 
-    if (links) {
-        for (const link of links) {
-            if (!link.url || !link.linkTitle) {
-                return res.status(400).json({ message: 'Each link must have a URL and a title.' });
-            }
-        }
-    }
-
     try {
-
         const existingPage = await Page.findOne({ userId: req.user.id });
 
         if (existingPage) {
@@ -32,8 +43,12 @@ exports.createPage = async (req, res) => {
         const newPage = new Page({
             title,
             description,
-            links, 
-            userId: req.user.id 
+            links,
+            userId: req.user.id,
+            profileImage, // Save only the filename
+            backgroundColor, // Save background color
+            textColor, // Save text color
+            viewCount: 0 // Initialize view count to 0
         });
 
         const savedPage = await newPage.save();
@@ -44,14 +59,25 @@ exports.createPage = async (req, res) => {
     }
 };
 
-// Update a specific page by ID
+// Update a specific page by ID with image upload
 exports.updatePage = async (req, res) => {
     const { id } = req.params;
-    const { title, description, links } = req.body;
+    const { title, description, links, backgroundColor, textColor } = req.body; // Include new fields
+    const profileImage = req.file ? req.file.filename : null; // Use filename instead of path
 
     try {
-        const updatedPage = await Page.findByIdAndUpdate(id, { title, description, links }, { new: true });
+        // Prepare update object
+        const updateData = { title, description, links, backgroundColor, textColor };
+        
+        // Only update profileImage if a new one has been uploaded
+        if (profileImage) {
+            updateData.profileImage = profileImage;
+        }
+
+        const updatedPage = await Page.findByIdAndUpdate(id, updateData, { new: true });
+        
         if (!updatedPage) return res.status(404).json({ message: 'Page not found' });
+        
         res.json(updatedPage); // Respond with updated page data
     } catch (error) {
         console.error("Error updating page:", error);
@@ -84,8 +110,6 @@ exports.getPageById = async (req, res) => {
     }
 };
 
-
-
 // Delete a page by ID
 exports.deletePage = async (req, res) => {
     const { id } = req.params; 
@@ -102,12 +126,15 @@ exports.deletePage = async (req, res) => {
     }
 };
 
-
+// Increment view count for a specific page by ID
 exports.incrementViewCount = async (req, res) => {
     const { id } = req.params;
+    
     try {
         const updatedPage = await Page.findByIdAndUpdate(id, { $inc: { viewCount: 1 } }, { new: true });
+        
         if (!updatedPage) return res.status(404).json({ message: 'Page not found' });
+        
         res.json(updatedPage); // Respond with updated view count or other relevant data
     } catch (error) {
         console.error("Error incrementing view count:", error);

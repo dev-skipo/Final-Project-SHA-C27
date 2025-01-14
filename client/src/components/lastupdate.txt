@@ -115,7 +115,6 @@ const handleDragEnd = (event) => {
     };
 
     const handleEditPage = async (event) => {
-        setShowForm(true); // Show the form and live preview
         event.preventDefault();
         const token = localStorage.getItem('token');
         const formData = new FormData();
@@ -160,7 +159,7 @@ const handleDragEnd = (event) => {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 fetchPages(); // Refresh the list of pages
-                resetForm(true); // Force reset to default values and hide the form/live preview
+                resetForm(true); // Force reset to default values
                 setInitialFormData(null); // Clear initialFormData
             } catch (error) {
                 console.error("Error deleting page:", error.response ? error.response.data : error.message);
@@ -382,10 +381,10 @@ const handleDragEnd = (event) => {
 
 
 
-        <Col md={showForm ? 10 : 10}> {/* Adjust width based on showForm */}
+              <Col md={10}>
               {activeSection === 'page' && (
     <div className="mt-4">
-        <Row >
+        <Row>
             {/* Left Side Content (Existing Pages List and Form) */}
             <Col md={8}>
             <ListGroup className="mt-2">
@@ -430,7 +429,7 @@ const handleDragEnd = (event) => {
 </ListGroup>
 
            {!showForm && pages.length === 0 && (
-               <Button variant="dark" className="me-2 btn-sm mb-3" onClick={() => { resetForm();  setShowForm(true);  setShowForm(true); }}>Create Page</Button>
+               <Button variant="dark" className="me-2 btn-sm mb-3" onClick={() => { resetForm(); setShowForm(true); }}>Create Page</Button>
              )}
 
 {(showForm || editMode) && (
@@ -697,182 +696,182 @@ const handleDragEnd = (event) => {
  
 
    {/* Right Side Card (Live Preview) */}
-   {showForm && ( // Only show the live preview when the form is visible
-    <Col md={4} xs={12} className="pb-4 pt-2"> {/* Column takes 50% width on medium and larger screens, full width on smaller screens */}
-        <div style={{ position: 'sticky', top: '20px' }}>
-            
-            {/* Small Div for Buttons */}
-            {currentPageId && (
-                <div 
-                    className="bg-light rounded border"
-                    style={{ 
-                        width: '100%', // Full width
-                        display: 'flex', 
-                        justifyContent: 'space-between', // Space between buttons
-                        alignItems: 'center', // Center buttons vertically
-                        padding: '6px', // Add some padding
-                        marginBottom: '10px' // Add margin at the bottom
-                    }}
-                >
-                    {/* Copy Link Button */}
-                    <Button 
-                        variant={isCopied ? "success" : "outline-dark"} // Change to green when copied
-                        size="sm" 
-                        onClick={() => {
-                            navigator.clipboard.writeText(`http://localhost:3000/pages/${currentPageId}`);
-                            setIsCopied(true); // Set isCopied to true
-                            setTimeout(() => setIsCopied(false), 2000); // Revert after 2 seconds
-                        }}
-                    >
-                        {isCopied ? (
-                            <>
-                                <i className="bi bi-clipboard-check"></i> Link Copied!
-                            </>
-                        ) : (
-                            <>
-                                <i className="bi bi-clipboard"></i> Copy Link
-                            </>
-                        )}
-                    </Button>
-
-                    {/* Open Page Button */}
-                    <Button 
-                        variant="dark" 
-                        size="sm" 
-                        onClick={() => window.open(`http://localhost:3000/pages/${currentPageId}`, '_blank')}
-                    >
-                        Open Page <i className="bi bi-arrow-right-short"></i>
-                    </Button>
-                </div>
-            )}
-
-            {/* Live Preview Card */}
-            <Card
-                className="text-center mx-auto border" // Center the card horizontally
-                style={{
-                    width: '100%', // Full width on smaller screens
-                    maxWidth: '600px', // Fixed width on larger screens
-                    backgroundColor: backgroundColor || '#ffffff', // Use backgroundColor prop or fallback to white
-                    color: textColor || '#000000',
-                    position: 'relative',
-                    marginBottom: '20px', // Add some margin at the bottom of the card
-                    border: 'none', // Remove the card border
-                    minHeight: '40vh' // Add minimum height of 50px
+<Col md={4} xs={12} className="pb-4 pt-2"> {/* Column takes 50% width on medium and larger screens, full width on smaller screens */}
+    <div style={{ position: 'sticky', top: '20px' }}>
+        
+        {/* Small Div for Buttons */}
+        {currentPageId && (
+            <div 
+            className="bg-light rounded border"
+                style={{ 
+                    width: '100%', // Full width
+                    display: 'flex', 
+                    justifyContent: 'space-between', // Space between buttons
+                    alignItems: 'center', // Center buttons vertically
+                    padding: '6px', // Add some padding
+                    marginBottom: '10px' // Add margin at the bottom
                 }}
             >
-                {/* Subscribe Button (Non-functional in Preview) */}
+                {/* Copy Link Button */}
                 <Button 
-                    variant="secondary" 
-                    className="position-absolute top-0 start-0 m-2"
-                    disabled
-                >
-                    <i className="bi bi-bell"></i> 
-                </Button>
-
-                {/* Share Button (Non-functional in Preview) */}
-                <Button 
-                    variant="secondary" 
-                    className="position-absolute top-0 end-0 m-2"
-                    disabled
-                >
-                    <i className="bi bi-three-dots-vertical"></i> 
-                </Button>
-
-                {/* Display Profile Image */}
-                <div 
-                    className="mt-3" 
-                    style={{ 
-                        width: '100px', // Fixed width for the container
-                        height: '100px', // Fixed height for the container
-                        borderRadius: '50%', // Circular container (optional)
-                        overflow: 'hidden', // Ensure the image stays within the container
-                        margin: '0 auto', // Center the container horizontally
-                        backgroundColor: '#f0f0f0', // Fallback background color
-                        display: 'flex', // Use Flexbox for centering
-                        justifyContent: 'center', // Center horizontally
-                        alignItems: 'center', // Center vertically
-                        backgroundImage: `url('https://i.ibb.co/BVCbLgf/Untitled-design-5.png')`, // Use profile image or fallback image
-                        backgroundSize: 'cover', // Ensure the background image covers the container
-                        backgroundPosition: 'center' // Center the background image
+                    variant={isCopied ? "success" : "outline-dark"} // Change to green when copied
+                    size="sm" 
+                    onClick={() => {
+                        navigator.clipboard.writeText(`http://localhost:3000/pages/${currentPageId}`);
+                        setIsCopied(true); // Set isCopied to true
+                        setTimeout(() => setIsCopied(false), 2000); // Revert after 2 seconds
                     }}
                 >
-                    {profilePicture || existingImageUrl ? (
-                        <img 
-                            src={
-                                profilePicture ? 
-                                URL.createObjectURL(profilePicture) : 
-                                existingImageUrl
-                            } 
-                            alt="" // Empty alt text to hide fallback text
-                            style={{ 
-                                width: '100%', // Fill the container
-                                height: '100%', // Fill the container
-                                objectFit: 'cover' // Ensure the image covers the container without distortion
-                            }} 
-                        />
-                    ) : null}
-                </div>
-
-                <Card.Body>
-                    {/* Display Title */}
-                    <Card.Title>{title || "Link Bio"}</Card.Title>
-
-                    {/* Display Description */}
-                    <Card.Text>{description || "Create Page to start Live Preview."}</Card.Text>
-
-                    {/* Display Links */}
-                    {links.length > 0 && (
-                        <ul className="list-unstyled">
-                            {links.map((link, index) => (
-                                link.url && link.linkTitle && (
-                                    <li key={index}>
-                                        {link.url.includes('youtube.com/watch?v=') || link.url.includes('youtu.be/') ? (
-                                            <div style={{ 
-                                                position: 'relative', 
-                                                paddingBottom: '56.25%', 
-                                                height: 0, 
-                                                overflow: 'hidden',
-                                                margin: '10px 0' // Add margin for spacing
-                                            }}>
-                                                <iframe
-                                                    src={getYouTubeEmbedUrl(link)}
-                                                    frameBorder="0"
-                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                    allowFullScreen
-                                                    title="Embedded youtube"
-                                                    style={{
-                                                        position: 'absolute',
-                                                        top: 0,
-                                                        left: 0,
-                                                        width: '100%',
-                                                        height: '100%',
-                                                    }}
-                                                />
-                                            </div>
-                                        ) : (
-                                            <Button 
-                                                variant="primary" 
-                                                onClick={() => window.open(link.url.startsWith('http') ? link.url : `http://${link.url}`, '_blank')} 
-                                                className="m-1 w-100"
-                                                style={{
-                                                    backgroundColor: textColor || '#000000', // Background color = textColor
-                                                    color: backgroundColor || '#ffffff', // Text color = backgroundColor
-                                                    border: 'none' // Remove default border
-                                                }}
-                                            >
-                                                {link.linkTitle}
-                                            </Button>
-                                        )}
-                                    </li>
-                                )
-                            ))}
-                        </ul>
+                    {isCopied ? (
+                        <>
+                            <i className="bi bi-clipboard-check"></i> Link Copied!
+                        </>
+                    ) : (
+                        <>
+                            <i className="bi bi-clipboard"></i> Copy Link
+                        </>
                     )}
-                </Card.Body>
-            </Card>
-        </div>
-    </Col>
-)}
+                </Button>
+
+                {/* Open Page Button */}
+                <Button 
+                    variant="dark" 
+                    size="sm" 
+                    onClick={() => window.open(`http://localhost:3000/pages/${currentPageId}`, '_blank')}
+                >
+                    Open Page <i className="bi bi-arrow-right-short"></i>
+                </Button>
+            </div>
+        )}
+
+        {/* Live Preview Card */}
+        <Card
+  className="text-center mx-auto border" // Center the card horizontally
+  style={{
+    width: '100%', // Full width on smaller screens
+    maxWidth: '600px', // Fixed width on larger screens
+    backgroundColor: backgroundColor || '#ffffff', // Use backgroundColor prop or fallback to white
+    color: textColor || '#000000',
+    position: 'relative',
+    marginBottom: '20px', // Add some margin at the bottom of the card
+    border: 'none', // Remove the card border
+    minHeight: '40vh' // Add minimum height of 50px
+  }}
+
+        >
+            {/* Subscribe Button (Non-functional in Preview) */}
+            <Button 
+                variant="secondary" 
+                className="position-absolute top-0 start-0 m-2"
+                disabled
+            >
+                <i className="bi bi-bell"></i> 
+            </Button>
+
+            {/* Share Button (Non-functional in Preview) */}
+            <Button 
+                variant="secondary" 
+                className="position-absolute top-0 end-0 m-2"
+                disabled
+            >
+                <i className="bi bi-three-dots-vertical"></i> 
+            </Button>
+
+           
+           {/* Display Profile Image */}
+<div 
+  className="mt-3" 
+  style={{ 
+    width: '100px', // Fixed width for the container
+    height: '100px', // Fixed height for the container
+    borderRadius: '50%', // Circular container (optional)
+    overflow: 'hidden', // Ensure the image stays within the container
+    margin: '0 auto', // Center the container horizontally
+    backgroundColor: '#f0f0f0', // Fallback background color
+    display: 'flex', // Use Flexbox for centering
+    justifyContent: 'center', // Center horizontally
+    alignItems: 'center', // Center vertically
+    backgroundImage: `url('https://i.ibb.co/BVCbLgf/Untitled-design-5.png')`, // Use profile image or fallback image
+    backgroundSize: 'cover', // Ensure the background image covers the container
+    backgroundPosition: 'center' // Center the background image
+  }}
+>
+  {profilePicture || existingImageUrl ? (
+    <img 
+      src={
+        profilePicture ? 
+        URL.createObjectURL(profilePicture) : 
+        existingImageUrl
+      } 
+      alt="" // Empty alt text to hide fallback text
+      style={{ 
+        width: '100%', // Fill the container
+        height: '100%', // Fill the container
+        objectFit: 'cover' // Ensure the image covers the container without distortion
+      }} 
+    />
+  ) : null}
+</div>
+
+            <Card.Body>
+                {/* Display Title */}
+                <Card.Title>{title || "Link Bio"}</Card.Title>
+
+                {/* Display Description */}
+                <Card.Text>{description || "Create Page to start Live Preview."}</Card.Text>
+
+                {/* Display Links */}
+                {links.length > 0 && (
+                    <ul className="list-unstyled">
+                        {links.map((link, index) => (
+                            link.url && link.linkTitle && (
+                                <li key={index}>
+                                    {link.url.includes('youtube.com/watch?v=') || link.url.includes('youtu.be/') ? (
+                                        <div style={{ 
+                                            position: 'relative', 
+                                            paddingBottom: '56.25%', 
+                                            height: 0, 
+                                            overflow: 'hidden',
+                                            margin: '10px 0' // Add margin for spacing
+                                        }}>
+                                            <iframe
+                                                src={getYouTubeEmbedUrl(link)}
+                                                frameBorder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowFullScreen
+                                                title="Embedded youtube"
+                                                style={{
+                                                    position: 'absolute',
+                                                    top: 0,
+                                                    left: 0,
+                                                    width: '100%',
+                                                    height: '100%',
+                                                }}
+                                            />
+                                        </div>
+                                    ) : (
+                                        <Button 
+                                            variant="primary" 
+                                            onClick={() => window.open(link.url.startsWith('http') ? link.url : `http://${link.url}`, '_blank')} 
+                                            className="m-1 w-100"
+                                            style={{
+                                                backgroundColor: textColor || '#000000', // Background color = textColor
+                                                color: backgroundColor || '#ffffff', // Text color = backgroundColor
+                                                border: 'none' // Remove default border
+                                            }}
+                                        >
+                                            {link.linkTitle}
+                                        </Button>
+                                    )}
+                                </li>
+                            )
+                        ))}
+                    </ul>
+                )}
+            </Card.Body>
+        </Card>
+    </div>
+</Col>
         </Row>
     </div>
 )}
