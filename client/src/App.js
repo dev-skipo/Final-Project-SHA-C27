@@ -38,7 +38,6 @@ const App = () => {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/pages/:id" element={<PageDetails />} /> {/* This route will not show the Navbar or Footer */}
                 <Route path="/settings" element={<Settings />} /> {/* New route for Settings */}
-                {/* Add other routes as needed */}
             </Routes>
 
             {/* Render Footer only if the current path is not in noFooterPaths or doesn't match PageDetails */}
