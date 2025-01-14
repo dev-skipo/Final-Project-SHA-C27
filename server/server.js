@@ -24,7 +24,7 @@ const subscriptionRoutes = require('./routes/subscriptionRoutes'); // Subscripti
 app.use('/uploads', express.static('uploads')); // Serve images from uploads folder
 
 // Serve static files from the React app's build directory
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, '../client/build')));
 
 // Use API routes
 app.use('/api/auth', authRoutes); // Authentication routes
@@ -34,7 +34,7 @@ app.use('/api/subscriptions', subscriptionRoutes);
 
 // Catch-all route to serve index.html for client-side routing
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 
 // Start server
