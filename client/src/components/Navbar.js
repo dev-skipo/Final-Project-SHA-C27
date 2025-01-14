@@ -16,7 +16,7 @@ const CustomNavbar = () => {
 
     const isLoggedIn = !!localStorage.getItem('token');
 
-    // Common style for buttons and Nav.Link elements
+
     const commonStyle = {
         padding: '2px 8px', // Smaller padding
         height: '28px', // Smaller height
@@ -28,41 +28,41 @@ const CustomNavbar = () => {
     return (
         <Navbar className="px-3" bg="black" variant="dark" expand="lg" expanded={expanded}>
             <Navbar.Brand as={Link} to="/">Link Bio</Navbar.Brand>
-            {/* Toggle Button without Shadow and Border */}
+            {/* Toggle Button */}
             <Navbar.Toggle 
                 aria-controls="basic-navbar-nav" 
-                className="border-0 shadow-none" // Remove border and shadow
+                className="border-0 shadow-none" // Remove bo - sh 
                 onClick={() => setExpanded(expanded ? false : true)}
             />
             <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="ms-auto"> {/* Aligns links to the right */}
+                <Nav className="ms-auto"> 
                     {isLoggedIn ? (
                         <>
                             {/* Dashboard and Settings Links */}
                             <Nav.Link 
                                 as={Link} 
                                 to="/dashboard" 
-                                style={commonStyle} // Apply common style
-                                className="d-flex align-items-center" // Ensure vertical alignment
-                                onClick={() => setExpanded(false)} // Collapse navbar on click
+                                style={commonStyle} 
+                                className="d-flex align-items-center" 
+                                onClick={() => setExpanded(false)} 
                             >
                                 Dashboard
                             </Nav.Link>
                             <Nav.Link 
                                 as={Link} 
                                 to="/settings" 
-                                style={commonStyle} // Apply common style
-                                className="d-flex align-items-center" // Ensure vertical alignment
-                                onClick={() => setExpanded(false)} // Collapse navbar on click
+                                style={commonStyle} 
+                                className="d-flex align-items-center" 
+                                onClick={() => setExpanded(false)} 
                             >
                                 Settings
                             </Nav.Link>
                             {/* Logout Button */}
                             <Button 
-                                variant="outline-light" // Light outline for contrast
+                                variant="outline-light" 
                                 onClick={handleLogout}
-                                size="sm" // Small button
-                                style={commonStyle} // Apply common style
+                                size="sm" 
+                                style={commonStyle} 
                             >
                                 Logout
                             </Button>
@@ -71,22 +71,22 @@ const CustomNavbar = () => {
                         <>
                             {/* Login and Register Buttons */}
                             <Button 
-                                variant="outline-light" // Light outline for contrast
+                                variant="outline-light" 
                                 as={Link} 
                                 to="/login" 
-                                size="sm" // Small button
-                                style={commonStyle} // Apply common style
-                                onClick={() => setExpanded(false)} // Collapse navbar on click
+                                size="sm" 
+                                style={commonStyle} 
+                                onClick={() => setExpanded(false)}
                             >
                                 Login
                             </Button>
                             <Button 
-                                variant="light" // Light outline for contrast
+                                variant="light" 
                                 as={Link} 
                                 to="/register" 
-                                size="sm" // Small button
-                                style={commonStyle} // Apply common style
-                                onClick={() => setExpanded(false)} // Collapse navbar on click
+                                size="sm" 
+                                style={commonStyle} 
+                                onClick={() => setExpanded(false)} 
                             >
                                 Register
                             </Button>

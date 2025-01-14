@@ -1,20 +1,19 @@
-import React, { useEffect } from 'react'; // Import useEffect
-import { useNavigate } from 'react-router-dom'; // For navigation
+import React, { useEffect } from 'react'; 
+import { useNavigate } from 'react-router-dom'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-icons/font/bootstrap-icons.css'; // For Bootstrap Icons
-import AnimatedSection from './AnimatedSection'; // Import the reusable component
+import 'bootstrap-icons/font/bootstrap-icons.css'; 
+import AnimatedSection from './AnimatedSection'; 
 
 const LandingPage = () => {
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate(); 
 
-  // Check if the user is logged in
+
   const isLoggedIn = () => {
-    // Replace this with your actual authentication check
-    // For example, check for a token in localStorage or a state in Redux/Context
+   
     return localStorage.getItem('token') !== null;
   };
 
-  // Redirect to /dashboard if the user is logged in
+
   useEffect(() => {
     if (isLoggedIn()) {
       navigate('/dashboard'); // Redirect to the dashboard
@@ -24,7 +23,7 @@ const LandingPage = () => {
 
   return (
     <div>
-      {/* Section 1: Hero Section */}
+      {/* Section 1*/}
       
         <section 
           className="d-flex align-items-center vh-100 bg-black text-white"
@@ -33,7 +32,7 @@ const LandingPage = () => {
           <div className="container">
           <AnimatedSection>
             <div className="row align-items-center">
-              {/* Left Side: Title, Description, and Buttons */}
+       
               <div className="col-md-6 text-center text-md-start">
                 <h1 className="display-4 mb-4">The Complete Link Aggregator You Will Ever Need.</h1>
                 <p className="lead mb-4">It’s free, and takes less than a minute.</p>
@@ -52,7 +51,7 @@ const LandingPage = () => {
 </a>
                 </div>
               </div>
-              {/* Right Side: Image */}
+           
               <div className="col-md-6 mt-4 mt-md-0">
                 <img 
                   src="https://i.ibb.co/xGLW20N/1-link.png" 
@@ -66,7 +65,7 @@ const LandingPage = () => {
         </section>
      
 
-      {/* Section 2: Split Screen - Half Picture and Half Text */}
+      {/* Section 2 */}
       
         <section 
           className="d-flex align-items-center"
@@ -75,7 +74,7 @@ const LandingPage = () => {
           <div className="container">
           <AnimatedSection>
             <div className="row">
-              {/* Left Side: Image */}
+             
               <div className="col-md-6 d-flex align-items-center">
                 <img 
                   src="https://i.ibb.co/mNNDqPF/1-link-15.png" 
@@ -83,7 +82,7 @@ const LandingPage = () => {
                   className="img-fluid rounded"
                 />
               </div>
-             {/* Right Side: Text and List */}
+             
 <div className="col-md-6 d-flex align-items-center">
   <div className="p-4 bg-light rounded shadow-sm">
     <h2 className="mb-4 display-5">
@@ -135,7 +134,7 @@ const LandingPage = () => {
         </section>
      
 
-      {/* Section 3: Split Screen - Half Picture and Half Text (Reversed) */}
+      {/* Section 3*/}
       
         <section 
           className="d-flex align-items-center"
@@ -144,7 +143,7 @@ const LandingPage = () => {
           <div className="container">
           <AnimatedSection>
             <div className="row">
-              {/* Right Side: Image */}
+           
               <div className="col-md-6 d-flex align-items-center order-md-2">
                 <img 
                   src="https://i.ibb.co/xjpfhzc/1-link-9.png" 
@@ -152,7 +151,7 @@ const LandingPage = () => {
                   className="img-fluid rounded"
                 />
               </div>
-              {/* Left Side: Text and List */}
+       
 <div className="col-md-6 d-flex align-items-center order-md-1">
   <div className="p-4 bg-light rounded shadow-sm">
     <h2 className="mb-4 display-5">
@@ -204,7 +203,7 @@ const LandingPage = () => {
         </section>
       
 
-      {/* Section 4: Split Screen - Half Picture and Half Text */}
+      {/* Section 4 */}
       
         <section 
           className="d-flex align-items-center"
@@ -213,7 +212,7 @@ const LandingPage = () => {
           <div className="container">
           <AnimatedSection>
             <div className="row">
-              {/* Left Side: Image */}
+        
               <div className="col-md-6 d-flex align-items-center">
                 <img 
                   src="https://i.ibb.co/JjC1rnL/1-link-8.png" 
@@ -221,7 +220,7 @@ const LandingPage = () => {
                   className="img-fluid rounded"
                 />
               </div>
-             {/* Right Side: Text and List */}
+           
 <div className="col-md-6 d-flex align-items-center">
   <div className="p-4 bg-light rounded shadow-sm">
     <h2 className="mb-4 display-5">
@@ -265,17 +264,17 @@ const LandingPage = () => {
         </section>
       
 
-      {/* Section 5: Reviews Section */}
+      {/* Section 5*/}
       
         <section 
           className="d-flex flex-column justify-content-center align-items-center vh-100 bg-black"
           style={{ padding: '20px' }}
         >
-          {/* Centered Text */}
+   
           <AnimatedSection>
           <h2 className="text-center mb-5 display-4 fw-bold text-white">Loved by 500,000+ creators</h2>
           
-          {/* Review Cards */}
+       
           <div className="container">
             <div className="row g-4">
               {/* Review Card 1 */}
@@ -323,19 +322,19 @@ const LandingPage = () => {
         </section>
     
 
-      {/* Section 6: Create Account and Button */}
+      {/* Section 6 */}
       
         <section 
           className="d-flex justify-content-center align-items-center bg-black"
           style={{ padding: '20px' }}
         >
-          {/* Container for Title and Button */}
+
           <AnimatedSection>
           <div className="d-flex flex-column flex-md-row align-items-center gap-3">
-            {/* Title */}
+       
             <h2 className="mb-0 fs-5 fw-bold text-center text-md-start text-light">Create your Free Account Now!</h2>
             
-            {/* Button */}
+       
             <a 
               href="/register" // Redirects to /register
               className="btn btn-light rounded-circle "
@@ -347,16 +346,16 @@ const LandingPage = () => {
         </section>
       
 
-      {/* Section 7: Powered by SHA-2025 */}
+      {/* Section 7 */}
       
         <section 
           className="d-flex justify-content-center align-items-center vh-50 bg-black"
           style={{ padding: '20px' }}
         >
           <AnimatedSection>
-          {/* Container for Title as Link */}
+
           <div className="d-flex flex-column align-items-center gap-3 rounded-pill">
-            {/* Title as Link */}
+         
             <a 
               href="https://socialhackersacademy.org/" 
               target="_blank" 

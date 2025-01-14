@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom'; // Import Link
+import { useNavigate, Link } from 'react-router-dom'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Register = () => {
@@ -21,9 +21,9 @@ const Register = () => {
                 email, 
                 password, 
                 category, 
-                username // Include username in the request
+                username // Include username 
             });
-            // Set success alert
+      
             setAlertMessage('Registration successful!');
             setAlertType('success');
             // Redirect to login page after 2 seconds
@@ -45,21 +45,21 @@ const Register = () => {
     return (
         <div 
             className="container-fluid d-flex justify-content-center align-items-center vh-100"
-            style={{ backgroundColor: '#f9f9f9' }} // Set main container background
+            style={{ backgroundColor: '#f9f9f9' }} 
         >
             <div>
-                {/* Alert Message (outside the card) */}
+                {/* Alert Message*/}
                 {alertMessage && (
                     <div 
                         className={`alert alert-${alertType} mb-3 text-center rounded`}
-                        style={{ width: '350px', margin: '0 auto' }} // Match card width and center
+                        style={{ width: '350px', margin: '0 auto' }} 
                     >
                         {alertMessage}
                     </div>
                 )}
 
                 {/* Card */}
-                <div className="card shadow-sm border-0" style={{ width: '350px' }}> {/* Smaller width */}
+                <div className="card shadow-sm border-0" style={{ width: '350px' }}> 
                     <div className="card-body">
                         <h2 className="card-title mb-4">Register</h2>
                         <form onSubmit={handleSubmit}>
@@ -67,63 +67,63 @@ const Register = () => {
                                 <label htmlFor="name" className="form-label">Name</label>
                                 <input 
                                     type="text" 
-                                    className="form-control form-control-sm" // Smaller input field
+                                    className="form-control form-control-sm" 
                                     id="name" 
                                     placeholder="Enter your name" 
                                     value={name} 
                                     onChange={(e) => setName(e.target.value)} 
                                     required 
-                                    style={{ height: '36px' }} // Custom height
+                                    style={{ height: '36px' }} 
                                 />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="username" className="form-label">Username</label>
                                 <input 
                                     type="text" 
-                                    className="form-control form-control-sm" // Smaller input field
+                                    className="form-control form-control-sm" 
                                     id="username" 
                                     placeholder="Choose a username" 
                                     value={username} 
                                     onChange={(e) => setUsername(e.target.value)} 
                                     required 
-                                    style={{ height: '36px' }} // Custom height
+                                    style={{ height: '36px' }} 
                                 />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="email" className="form-label">Email</label>
                                 <input 
                                     type="email" 
-                                    className="form-control form-control-sm" // Smaller input field
+                                    className="form-control form-control-sm" 
                                     id="email" 
                                     placeholder="Enter your email" 
                                     value={email} 
                                     onChange={(e) => setEmail(e.target.value)} 
                                     required 
-                                    style={{ height: '36px' }} // Custom height
+                                    style={{ height: '36px' }} 
                                 />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="password" className="form-label">Password</label>
                                 <input 
                                     type="password" 
-                                    className="form-control form-control-sm" // Smaller input field
+                                    className="form-control form-control-sm" 
                                     id="password" 
                                     placeholder="Enter your password" 
                                     value={password} 
                                     onChange={(e) => setPassword(e.target.value)} 
                                     required 
-                                    style={{ height: '36px' }} // Custom height
+                                    style={{ height: '36px' }} 
                                 />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="category" className="form-label">Select Category</label>
                                 <select
                                     id="category"
-                                    className="form-select form-select-sm" // Smaller select field
+                                    className="form-select form-select-sm" 
                                     value={category}
                                     onChange={(e) => setCategory(e.target.value)}
                                     required
-                                    style={{ height: '36px' }} // Custom height
+                                    style={{ height: '36px' }} 
                                 >
                                     <option value="">Select Category</option>
                                     <option value="music">Music</option>
@@ -133,12 +133,12 @@ const Register = () => {
                             </div>
                             <button 
                                 type="submit" 
-                                className="btn btn-dark w-100 btn-sm" // Dark button with small size
+                                className="btn btn-dark w-100 btn-sm" 
                             >
                                 Register
                             </button>
 
-                            {/* Divider */}
+                            {/* ---- */}
                             <div className="text-center my-3">
                             <hr style={{ width: '50%', margin: '20px auto', border: '1px solid #ccc' }} />
                             </div>
@@ -146,7 +146,7 @@ const Register = () => {
                             {/* Login with Facebook */}
                             <button 
                                 type="button" 
-                                className="btn btn-outline-dark w-100 mb-2 btn-sm" // Dark outline button with small size
+                                className="btn btn-outline-dark w-100 mb-2 btn-sm" 
                                 disabled
                             >
                                 Register with Facebook
@@ -155,7 +155,7 @@ const Register = () => {
                             {/* Login with Google */}
                             <button 
                                 type="button" 
-                                className="btn btn-outline-dark w-100 btn-sm" // Dark outline button with small size
+                                className="btn btn-outline-dark w-100 btn-sm" 
                                 disabled
                             >
                                 Register with Google

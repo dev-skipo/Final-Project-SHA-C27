@@ -15,7 +15,7 @@ const Settings = () => {
     const [errorMessage, setErrorMessage] = useState(null);
     const [activeSection, setActiveSection] = useState('general');
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [showSidebar, setShowSidebar] = useState(false); // State to control sidebar visibility
+    const [showSidebar, setShowSidebar] = useState(false); 
     const [showAlert, setShowAlert] = useState(false); // State to control alert visibility
     const [alertMessage, setAlertMessage] = useState(''); // State to store alert message
     const [alertVariant, setAlertVariant] = useState('success'); // State to store alert variant (success or danger)
@@ -104,14 +104,14 @@ const Settings = () => {
         className="mt-2" 
         style={{ minHeight: '100vh' }} // Add min-height: 100vh
     >
-        <Row className="g-0"> {/* Removed sticky styles here */}
-            {/* Sidebar Toggle Button (Visible only on mobile, aligned to the right) */}
+        <Row className="g-0"> 
+        
             <div className="d-flex justify-content-end d-md-none p-3">
                 <Button
                     variant="outline-dark"
-                    onClick={() => setShowSidebar(!showSidebar)} // Toggle sidebar visibility
+                    onClick={() => setShowSidebar(!showSidebar)} 
                 >
-                    {showSidebar ? 'Close ✕ ' : 'Menu ☰'} {/* Toggle button text */}
+                    {showSidebar ? 'Close ✕ ' : 'Menu ☰'} 
                 </Button>
             </div>
     
@@ -125,7 +125,7 @@ const Settings = () => {
                         className={`mb-2 p-2 rounded ${activeSection === 'general' ? 'bg-dark text-white' : 'bg-light text-dark'}`}
                         onClick={() => {
                             setActiveSection('general');
-                            setShowSidebar(false); // Close sidebar on mobile after clicking a link
+                            setShowSidebar(false); 
                         }}
                     >
                         <i className="bi bi-file-person"></i> General Settings
@@ -134,7 +134,7 @@ const Settings = () => {
                         className={`mb-2 p-2 rounded ${activeSection === 'site' ? 'bg-dark text-white' : 'bg-light text-dark'}`}
                         onClick={() => {
                             setActiveSection('site');
-                            setShowSidebar(false); // Close sidebar on mobile after clicking a link
+                            setShowSidebar(false); 
                         }}
                     >
                         <i className="bi bi-toggle-off"></i> Site Settings
@@ -143,7 +143,7 @@ const Settings = () => {
                         className={`mb-2 p-2 rounded ${activeSection === 'privacy' ? 'bg-dark text-white' : 'bg-light text-dark'}`}
                         onClick={() => {
                             setActiveSection('privacy');
-                            setShowSidebar(false); // Close sidebar on mobile after clicking a link
+                            setShowSidebar(false);
                         }}
                     >
                         <i className="bi bi-file-post"></i> Privacy Policy
@@ -157,7 +157,7 @@ const Settings = () => {
 
                 {/* Main Content */}
                 <Col md={10} className="p-4">
-                    {/* Custom Alert Component */}
+                 
                     {showAlert && (
                         <Alert
                             variant={alertVariant}
@@ -187,7 +187,7 @@ const Settings = () => {
                                 value={userData.name}
                                 onChange={handleChange}
                                 required
-                                className="form-control-sm" // Smaller input
+                                className="form-control-sm" 
                             />
                         </Form.Group>
                     </Col>
@@ -199,7 +199,7 @@ const Settings = () => {
                                 name="username"
                                 value={userData.username}
                                 onChange={handleChange}
-                                className="form-control-sm" // Smaller input
+                                className="form-control-sm" 
                             />
                         </Form.Group>
                     </Col>
@@ -237,18 +237,18 @@ const Settings = () => {
                                 value={userData.category}
                                 onChange={handleChange}
                                 required
-                                className="form-control-sm" // Smaller input
+                                className="form-control-sm" 
                             />
                         </Form.Group>
                     </Col>
                 </Row>
 
-                 {/* Divider */}
+                 {/* --- */}
 <hr 
     className="my-4" 
     style={{ 
-        border: '0.5px solid #ddd', // Thinner and muted color
-        opacity: 0.5, // Muted effect
+        border: '0.5px solid #ddd', 
+        opacity: 0.5, 
     }} 
 />
 
@@ -264,7 +264,7 @@ const Settings = () => {
                                 value={userData.password}
                                 onChange={handleChange}
                                 autoComplete="new-password"
-                                className="form-control-sm" // Smaller input
+                                className="form-control-sm" 
                             />
                         </Form.Group>
                     </Col>
@@ -274,13 +274,13 @@ const Settings = () => {
 
                 {/* Delete Account Section */}
                 <Row>
-                    <Col md={6}> {/* Same width as Password input */}
+                    <Col md={6}> 
                         <div 
                             style={{ 
-                                border: '1px solid red', // Red border
-                                borderRadius: '8px', // Rounded corners
-                                padding: '16px', // Inner spacing
-                                marginBottom: '16px', // Spacing below the div
+                                border: '1px solid red', 
+                                borderRadius: '8px', 
+                                padding: '16px', 
+                                marginBottom: '16px', 
                             }}
                         >
                             {/* Warning Message */}

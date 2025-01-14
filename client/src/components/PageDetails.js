@@ -130,31 +130,31 @@ const PageDetails = () => {
 
     return (
         <Container
-            fluid // Make the container full-width
+            fluid 
             className="d-flex flex-column justify-content-center align-items-center"
             style={{
-                minHeight: '100vh', // Ensure the container takes up the full viewport height
-                paddingTop: '20px', // Add padding at the top to prevent the card from touching the top of the page
-                paddingBottom: '20px', // Add padding at the bottom for the watermark
-                backgroundColor: page.backgroundColor || '#ffffff' // Move the background color here
+                minHeight: '100vh', 
+                paddingTop: '20px',
+                paddingBottom: '20px', 
+                backgroundColor: page.backgroundColor || '#ffffff' 
             }}
         >
             {/* Card Section */}
             <Row className="justify-content-center w-100">
                 <Col md={6} xs={12}> {/* Column takes 50% width on medium and larger screens, full width on smaller screens */}
                     <Card
-                        className="text-center mx-auto" // Center the card horizontally
+                        className="text-center mx-auto"
                         style={{
-                            width: '100%', // Full width on smaller screens
-                            maxWidth: '600px', // Fixed width on larger screens
-                            backgroundColor: 'transparent', // Remove the card background color
+                            width: '100%', 
+                            maxWidth: '600px', 
+                            backgroundColor: 'transparent', 
                             color: page.textColor || '#000000',
                             position: 'relative',
-                            marginBottom: '20px', // Add some margin at the bottom of the card
-                            border: 'none' // Remove the card border
+                            marginBottom: '20px', 
+                            border: 'none' 
                         }}
                     >
-                        {/* Subscribe Button positioned at the top left */}
+                        {/* Subscribe Button*/}
                         <Button
                             variant="secondary"
                             onClick={() => setShowSubscribePopup(true)} // Open subscribe popup
@@ -176,28 +176,28 @@ const PageDetails = () => {
                         <div
                             className="mt-3"
                             style={{
-                                width: '100px', // Fixed width for the container
-                                height: '100px', // Fixed height for the container
-                                borderRadius: '50%', // Circular container (optional)
-                                overflow: 'hidden', // Ensure the image stays within the container
-                                margin: '0 auto', // Center the container horizontally
-                                backgroundColor: '#f0f0f0', // Fallback background color
-                                display: 'flex', // Use Flexbox for centering
-                                justifyContent: 'center', // Center horizontally
-                                alignItems: 'center', // Center vertically
+                                width: '100px', 
+                                height: '100px',
+                                borderRadius: '50%', 
+                                overflow: 'hidden', 
+                                margin: '0 auto', 
+                                backgroundColor: '#f0f0f0', 
+                                display: 'flex', 
+                                justifyContent: 'center',
+                                alignItems: 'center', 
                                 backgroundImage: `url(${page.profileImage ? `https://final-project-sha-c27.onrender.com/uploads/${page.profileImage}` : 'https://i.ibb.co/BVCbLgf/Untitled-design-5.png'})`, // Use profile image or fallback image
-                                backgroundSize: 'cover', // Ensure the background image covers the container
-                                backgroundPosition: 'center' // Center the background image
+                                backgroundSize: 'cover', 
+                                backgroundPosition: 'center' 
                             }}
                         >
                             {page.profileImage ? (
                                 <img
                                     src={`https://final-project-sha-c27.onrender.com/uploads/${page.profileImage}`}
-                                    alt="" // Empty alt text to hide fallback text
+                                    alt="" 
                                     style={{
-                                        width: '100%', // Fill the container
-                                        height: '100%', // Fill the container
-                                        objectFit: 'cover' // Ensure the image covers the container without distortion
+                                        width: '100%', 
+                                        height: '100%', 
+                                        objectFit: 'cover' 
                                     }}
                                 />
                             ) : null}
@@ -233,11 +233,11 @@ const PageDetails = () => {
                                                     <Button
                                                         variant="primary"
                                                         onClick={() => handleLinkClick(linkObj.url)}
-                                                        className="m-1 w-100" // Changed from m-1 to m-2 for more spacing
+                                                        className="m-1 w-100" 
                                                         style={{
-                                                            backgroundColor: page.textColor || '#000000', // Background color = page.textColor
-                                                            color: page.backgroundColor || '#ffffff', // Text color = page.backgroundColor
-                                                            border: 'none' // Remove default border
+                                                            backgroundColor: page.textColor || '#000000', 
+                                                            color: page.backgroundColor || '#ffffff', 
+                                                            border: 'none' 
                                                         }}
                                                     >
                                                         {linkObj.linkTitle}
@@ -266,19 +266,19 @@ const PageDetails = () => {
                     </div>
                     <hr style={{ width: '50%', margin: '20px auto', border: '1px solid #ccc' }} />
                     {/* Buttons Grid */}
-                    <Row className="g-3 justify-content-center"> {/* Adjust gap as needed */}
+                    <Row className="g-3 justify-content-center"> 
                         {/* Share on Facebook Button */}
                         <Col xs={4} sm={3} className="p-1"> {/* Use xs={4} for equal spacing on phones */}
                             <div className="d-flex flex-column align-items-center"> {/* Stack button and text vertically */}
                                 <Button
                                     variant="primary"
                                     onClick={handleShareToFacebook}
-                                    className="rounded-circle p-0 mb-2" // Add margin below the button
-                                    style={{ width: '50px', height: '50px' }} // Fixed size for the circle
+                                    className="rounded-circle p-0 mb-2" 
+                                    style={{ width: '50px', height: '50px' }} 
                                 >
                                     <i className="bi bi-facebook"></i> {/* Facebook icon */}
                                 </Button>
-                                <p className="m-0 text-center">Share to Facebook</p> {/* Centered text */}
+                                <p className="m-0 text-center">Share to Facebook</p>
                             </div>
                         </Col>
 
@@ -288,30 +288,30 @@ const PageDetails = () => {
                                 <Button
                                     variant="secondary"
                                     onClick={handleCopyLink}
-                                    className="rounded-circle p-0 mb-2" // Add margin below the button
-                                    style={{ width: '50px', height: '50px' }} // Fixed size for the circle
+                                    className="rounded-circle p-0 mb-2"
+                                    style={{ width: '50px', height: '50px' }} 
                                 >
                                     <i className="bi bi-link-45deg"></i> {/* Link icon */}
                                 </Button>
-                                <p className="m-0 text-center">Copy Link</p> {/* Centered text */}
+                                <p className="m-0 text-center">Copy Link</p> 
                             </div>
                         </Col>
 
                         {/* Share to WhatsApp Button */}
-                        <Col xs={4} sm={3} className="p-1"> {/* Use xs={4} for equal spacing on phones */}
-                            <div className="d-flex flex-column align-items-center"> {/* Stack button and text vertically */}
+                        <Col xs={4} sm={3} className="p-1"> 
+                            <div className="d-flex flex-column align-items-center">
                                 <Button
                                     variant="success"
-                                    onClick={handleShareToWhatsApp} // Updated onClick handler
-                                    className="rounded-circle p-0 mb-2" // Add margin below the button
-                                    style={{ width: '50px', height: '50px' }} // Fixed size for the circle
+                                    onClick={handleShareToWhatsApp} 
+                                    className="rounded-circle p-0 mb-2"
+                                    style={{ width: '50px', height: '50px' }} 
                                 >
-                                    <i className="bi bi-whatsapp"></i> {/* WhatsApp icon */}
+                                    <i className="bi bi-whatsapp"></i> 
                                 </Button>
-                                <p className="m-0 text-center">Share to WhatsApp</p> {/* Centered text */}
+                                <p className="m-0 text-center">Share to WhatsApp</p>
                             </div>
                         </Col>
-                        {isLinkCopied && ( // Conditionally render success message
+                        {isLinkCopied && ( 
                             <p className="m-0 text-center text-dark">Link copied successfully!</p>
                         )}
                     </Row>
@@ -356,7 +356,7 @@ const PageDetails = () => {
                         variant={buttonVariant}
                         onClick={handleSubscribe}
                         className="mt-3 w-100"
-                        disabled={!consent1 || !consent2 || !email} // Disable if either checkbox is unchecked or email is empty
+                        disabled={!consent1 || !consent2 || !email} 
                     >
                         {buttonText}
                     </Button>
