@@ -238,7 +238,7 @@ const Dashboard = () => {
                                    pages.map(page => (
                                        <ListGroup.Item key={page._id} className="d-flex justify-content-between align-items-center">
                                            <div>
-                                               Page link: <a href={`http://localhost:3000/pages/${page._id}`} target="_blank" rel="noopener noreferrer">{`http://localhost:3000/pages/${page._id}`}</a><br />
+                                               Page link: <a href={`https://final-project-sha-c27-1.onrender.com/pages/${page._id}`} target="_blank" rel="noopener noreferrer">{`https://final-project-sha-c27-1.onrender.com/pages/${page._id}`}</a><br />
                                            </div>
                                            <div>
                                                <Button variant="warning" className="me-2" onClick={() => handleEditButtonClick(page)}>Edit</Button>

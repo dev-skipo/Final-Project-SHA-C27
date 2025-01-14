@@ -719,7 +719,7 @@ const handleDragEnd = (event) => {
                         variant={isCopied ? "success" : "outline-dark"} // Change to green when copied
                         size="sm" 
                         onClick={() => {
-                            navigator.clipboard.writeText(`http://localhost:3000/pages/${currentPageId}`);
+                            navigator.clipboard.writeText(`https://final-project-sha-c27-1.onrender.com/pages/${currentPageId}`);
                             setIsCopied(true); // Set isCopied to true
                             setTimeout(() => setIsCopied(false), 2000); // Revert after 2 seconds
                         }}
@@ -739,7 +739,7 @@ const handleDragEnd = (event) => {
                     <Button 
                         variant="dark" 
                         size="sm" 
-                        onClick={() => window.open(`http://localhost:3000/pages/${currentPageId}`, '_blank')}
+                        onClick={() => window.open(`https://final-project-sha-c27-1.onrender.com/pages/${currentPageId}`, '_blank')}
                     >
                         Open Page <i className="bi bi-arrow-right-short"></i>
                     </Button>
