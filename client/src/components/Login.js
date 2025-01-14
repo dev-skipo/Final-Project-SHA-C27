@@ -13,7 +13,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+            const response = await axios.post('https://final-project-sha-c27.onrender.com/api/auth/login', { email, password });
             localStorage.setItem('token', response.data.token); // Store token in local storage
             setAlertMessage('Login successful!');
             setAlertType('success');

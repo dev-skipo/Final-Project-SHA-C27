@@ -25,7 +25,7 @@ const PageDetails = () => {
     const incrementPageView = async () => {
         const token = localStorage.getItem('token');
         try {
-            await axios.post(`http://localhost:5000/api/pages/${id}/view`, {}, {
+            await axios.post(`https://final-project-sha-c27.onrender.com/api/pages/${id}/view`, {}, {
                 headers: { Authorization: `Bearer ${token}` }
             });
         } catch (error) {
@@ -38,7 +38,7 @@ const PageDetails = () => {
         console.log("Fetching details for ID:", id);
 
         try {
-            const response = await axios.get(`http://localhost:5000/api/pages/${id}`, {
+            const response = await axios.get(`https://final-project-sha-c27.onrender.com/api/pages/${id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             console.log("Fetched page data:", response.data);
@@ -92,7 +92,7 @@ const PageDetails = () => {
 
     const handleSubscribe = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/subscribe', {
+            const response = await fetch('https://final-project-sha-c27.onrender.com/api/subscribe', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -185,14 +185,14 @@ const PageDetails = () => {
                                 display: 'flex', // Use Flexbox for centering
                                 justifyContent: 'center', // Center horizontally
                                 alignItems: 'center', // Center vertically
-                                backgroundImage: `url(${page.profileImage ? `http://localhost:5000/uploads/${page.profileImage}` : 'https://i.ibb.co/BVCbLgf/Untitled-design-5.png'})`, // Use profile image or fallback image
+                                backgroundImage: `url(${page.profileImage ? `https://final-project-sha-c27.onrender.com/uploads/${page.profileImage}` : 'https://i.ibb.co/BVCbLgf/Untitled-design-5.png'})`, // Use profile image or fallback image
                                 backgroundSize: 'cover', // Ensure the background image covers the container
                                 backgroundPosition: 'center' // Center the background image
                             }}
                         >
                             {page.profileImage ? (
                                 <img
-                                    src={`http://localhost:5000/uploads/${page.profileImage}`}
+                                    src={`https://final-project-sha-c27.onrender.com/uploads/${page.profileImage}`}
                                     alt="" // Empty alt text to hide fallback text
                                     style={{
                                         width: '100%', // Fill the container

@@ -70,7 +70,7 @@ const handleDragEnd = (event) => {
     const fetchPages = async () => {
         const token = localStorage.getItem('token');
         try {
-            const response = await axios.get('http://localhost:5000/api/pages', {
+            const response = await axios.get('https://final-project-sha-c27.onrender.com/api/pages', {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setPages(response.data);
@@ -104,7 +104,7 @@ const handleDragEnd = (event) => {
         }
 
         try {
-            const response = await axios.post('http://localhost:5000/api/pages', formData, {
+            const response = await axios.post('https://final-project-sha-c27.onrender.com/api/pages', formData, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             fetchPages();
@@ -136,7 +136,7 @@ const handleDragEnd = (event) => {
         }
 
         try {
-            await axios.put(`http://localhost:5000/api/pages/${currentPageId}`, formData, {
+            await axios.put(`https://final-project-sha-c27.onrender.com/api/pages/${currentPageId}`, formData, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             fetchPages();
@@ -155,7 +155,7 @@ const handleDragEnd = (event) => {
         const token = localStorage.getItem('token');
         if (window.confirm("Are you sure you want to delete this page?")) {
             try {
-                await axios.delete(`http://localhost:5000/api/pages/${pageId}`, {
+                await axios.delete(`https://final-project-sha-c27.onrender.com/api/pages/${pageId}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 fetchPages();
@@ -206,7 +206,7 @@ const handleDragEnd = (event) => {
             description: page.description,
             links: page.links || [{ url: '', linkTitle: '' }],
             profilePicture: page.profilePicture || null,
-            existingImageUrl: `http://localhost:5000/uploads/${page.profileImage || ''}`,
+            existingImageUrl: `https://final-project-sha-c27.onrender.com/uploads/${page.profileImage || ''}`,
             backgroundColor: page.backgroundColor || '#ffffff',
             textColor: page.textColor || '#000000',
             selectedTheme: page.backgroundColor === themes.theme1.backgroundColor ? themes.theme1.id :
@@ -222,7 +222,7 @@ const handleDragEnd = (event) => {
         setCurrentPageId(page._id);
         setEditMode(true);
         setShowForm(true);
-        setExistingImageUrl(`http://localhost:5000/uploads/${page.profileImage || ''}`);
+        setExistingImageUrl(`https://final-project-sha-c27.onrender.com/uploads/${page.profileImage || ''}`);
         setBackgroundColor(page.backgroundColor || '#ffffff');
         setTextColor(page.textColor || '#000000');
         setSelectedTheme(
@@ -285,7 +285,7 @@ const handleDragEnd = (event) => {
     const fetchSubscriptions = async () => {
         if (currentPageId) {
             try {
-                const response = await axios.get(`http://localhost:5000/api/subscriptions/${currentPageId}`);
+                const response = await axios.get(`https://final-project-sha-c27.onrender.com/api/subscriptions/${currentPageId}`);
                 setSubscriptions(response.data);
             } catch (error) {
                 console.error("Error fetching subscriptions:", error.response ? error.response.data : error.message);

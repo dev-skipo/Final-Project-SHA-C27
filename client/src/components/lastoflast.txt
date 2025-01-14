@@ -24,7 +24,7 @@ const Settings = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/auth/user', {
+                const response = await axios.get('https://final-project-sha-c27.onrender.com/api/auth/user', {
                     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
                 });
                 setUserData({
@@ -46,7 +46,7 @@ const Settings = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put('http://localhost:5000/api/auth/user/update', userData, {
+            await axios.put('https://final-project-sha-c27.onrender.com/api/auth/user/update', userData, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
             });
 
@@ -73,7 +73,7 @@ const Settings = () => {
 
     const handleDeleteAccount = async () => {
         try {
-            await axios.delete('http://localhost:5000/api/auth/user/delete', {
+            await axios.delete('https://final-project-sha-c27.onrender.com/api/auth/user/delete', {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
             });
 

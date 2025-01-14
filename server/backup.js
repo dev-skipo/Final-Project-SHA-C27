@@ -16,7 +16,7 @@ const PageDetails = () => {
         console.log("Using token:", token); // Log the token being used
 
         try {
-            const response = await axios.get(`http://localhost:5000/api/pages/${id}`, {
+            const response = await axios.get(`https://final-project-sha-c27.onrender.com/api/pages/${id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             console.log("Fetched page data:", response.data); // Log the fetched data
