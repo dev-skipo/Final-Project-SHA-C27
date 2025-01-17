@@ -308,6 +308,10 @@ const handleDragEnd = (event) => {
     }, [activeSection]);
 
 
+    const handleOpenPage = (pageId) => {
+        navigate(`/pages/${pageId}`);
+    };
+
    return (
     <Container // Sticky Side Start --------------------------------------
     fluid 
@@ -739,7 +743,7 @@ const handleDragEnd = (event) => {
                     <Button 
                         variant="dark" 
                         size="sm" 
-                        onClick={() => window.open(`https://final-project-sha-c27-1.onrender.com/pages/${currentPageId}`, '_blank')}
+                        onClick={() => handleOpenPage(page._id)}
                     >
                         Open Page <i className="bi bi-arrow-right-short"></i>
                     </Button>
