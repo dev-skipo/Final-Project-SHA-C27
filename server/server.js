@@ -23,7 +23,8 @@ const subscriptionRoutes = require('./routes/subscriptionRoutes'); // Subscripti
 // Serve static files from the uploads directory
 app.use('/uploads', express.static('uploads')); 
 
-app.use(express.static(path.join(__dirname, '/client/build')));
+app.use(express.static(path.join(__dirname, '../client/build')));
+console.log('Resolved path:', path.join(__dirname, '../client/build'));
 
 // Use API routes
 app.use('/api/auth', authRoutes); // Authentication routes
@@ -32,7 +33,7 @@ app.use('/api/subscribe', subscriptionRoutes); // Subscription routes
 app.use('/api/subscriptions', subscriptionRoutes);
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '/client/build', 'index.html'));
+    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 
 const PORT = process.env.PORT || 5000;
