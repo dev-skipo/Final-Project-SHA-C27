@@ -74,9 +74,6 @@ const handleDragEnd = (event) => {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setPages(response.data);
-            if (response.data.length > 0) {
-                handleEditButtonClick(response.data[0]);
-            }
         } catch (error) {
             console.error("Error fetching pages:", error.response ? error.response.data : error.message);
             alert("Failed to fetch pages.");
@@ -743,7 +740,7 @@ const handleDragEnd = (event) => {
                     <Button 
                         variant="dark" 
                         size="sm" 
-                        onClick={() => handleOpenPage(page._id)}
+                        onClick={() => handleOpenPage(currentPageId)}
                     >
                         Open Page <i className="bi bi-arrow-right-short"></i>
                     </Button>
