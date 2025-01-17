@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path'); 
 require('dotenv').config();
+const pageRoutes = require('./routes/pageRoutes'); // Import your page routes
 
 const app = express();
 
@@ -33,7 +34,7 @@ app.use('/api/subscribe', subscriptionRoutes); // Subscription routes
 app.use('/api/subscriptions', subscriptionRoutes);
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+    res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
 const PORT = process.env.PORT || 5000;
