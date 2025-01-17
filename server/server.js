@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path'); 
 require('dotenv').config();
-const pageRoutes = require('./routes/pageRoutes'); // Import your page routes
 
 const app = express();
 
