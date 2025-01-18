@@ -44,7 +44,7 @@ const LandingPage = () => {
   Create Account
 </a>
 <a 
-  href="#" 
+  href="#more" 
   className="btn btn-outline-light rounded-pill"
 >
   Read More
@@ -83,7 +83,7 @@ const LandingPage = () => {
                 />
               </div>
              
-<div className="col-md-6 d-flex align-items-center">
+<div className="col-md-6 d-flex align-items-center" id="more">
   <div className="p-4 bg-light rounded shadow-sm">
     <h2 className="mb-4 display-5">
       Built-in analytics

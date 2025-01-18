@@ -369,7 +369,7 @@ const PageDetails = () => {
             {/* Watermark at the bottom */}
             <div className="text-center mt-4">
                 <p>
-                    <a href="/register" style={{ color: 'gray', textDecoration: 'none' }}>
+                    <a href="/register" style={{ color: page.textColor || '#0d1215', textDecoration: 'none' }}>
                         Made By LinkBio, Create Your Page Free!
                     </a>
                 </p>

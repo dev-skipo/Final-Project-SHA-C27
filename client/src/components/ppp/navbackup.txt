@@ -1,0 +1,25 @@
+<Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
+    {/* Icon with white rounded background and dark icon */}
+    <div 
+        style={{ 
+            backgroundColor: 'white', 
+            borderRadius: '50%', 
+            width: '30px', 
+            height: '30px', 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center',
+            marginRight: '8px' // Add spacing between icon and text
+        }}
+    >
+        <i className="bi bi-feather" style={{ color: 'black', fontSize: '1.25rem' }}></i>
+    </div>
+    {/* Text for all screens */}
+    <span style={{ fontWeight: 'bold', fontSize: '1.2rem', fontSize: '1rem' }} className="fs-6 fs-lg-5">
+        Link Bio
+    </span>
+    {/* BETA tag for all screens */}
+    <span style={{ fontSize: '0.8rem', color: 'gray', marginLeft: '4px', fontSize: '0.7rem' }} className="fs-7 fs-lg-6">
+        BETA
+    </span>
+</Navbar.Brand>

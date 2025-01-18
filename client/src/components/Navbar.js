@@ -26,8 +26,34 @@ const CustomNavbar = () => {
     };
 
     return (
-        <Navbar className="px-3" bg="black" variant="dark" expand="lg" expanded={expanded}>
-            <Navbar.Brand as={Link} to="/">Link Bio</Navbar.Brand>
+        <Navbar className="px-4" bg="black" variant="dark" expand="lg" expanded={expanded}>
+            
+            <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
+    {/* Icon with white rounded background and dark icon */}
+    <div 
+        style={{ 
+            backgroundColor: 'white', 
+            borderRadius: '15%', 
+            width: '30px', 
+            height: '30px', 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center',
+            marginRight: '8px' // Add spacing between icon and text
+        }}
+    >
+        <i className="bi bi-feather" style={{ color: 'black', fontSize: '1.25rem' }}></i>
+    </div>
+    {/* Text for larger screens, hidden on mobile */}
+    <span className="d-none d-lg-inline" style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>
+        Link Bio
+    </span>
+    {/* BETA tag */}
+    <span className="d-none d-lg-inline" style={{ fontSize: '0.8rem', color: 'gray', marginLeft: '4px' }}>
+        BETA
+    </span>
+</Navbar.Brand>
+
             {/* Toggle Button */}
             <Navbar.Toggle 
                 aria-controls="basic-navbar-nav" 
