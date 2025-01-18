@@ -25,6 +25,7 @@ app.use('/uploads', express.static('uploads'));
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, '../client/build')));
+console.log('Resolved path:', path.join(__dirname, '../client/build'));
 
 
 // Use API routes
