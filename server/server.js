@@ -32,7 +32,7 @@ app.use('/api/pages', pageRoutes); // Page routes
 app.use('/api/subscribe', subscriptionRoutes); // Subscription routes
 app.use('/api/subscriptions', subscriptionRoutes);
 
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
