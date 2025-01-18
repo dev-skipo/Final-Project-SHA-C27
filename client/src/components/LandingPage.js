@@ -215,7 +215,7 @@ const LandingPage = () => {
         
               <div className="col-md-6 d-flex align-items-center">
                 <img 
-                  src="https://i.ibb.co/JjC1rnL/1-link-8.png" 
+                  src="https://i.ibb.co/phwFz6T/1-link-18.png" 
                   alt="Feature" 
                   className="img-fluid rounded"
                 />
@@ -235,7 +235,7 @@ const LandingPage = () => {
         <div className="d-flex align-items-center">
         <i className="bi bi-check2 me-3 text-success fs-5"></i>
         <div>
-            <strong>Links.to/you</strong>
+            <strong>Facebook</strong>
           </div>
         </div>
       </li>
@@ -243,7 +243,7 @@ const LandingPage = () => {
         <div className="d-flex align-items-center">
         <i className="bi bi-check2 me-3 text-success fs-5"></i>
         <div>
-            <strong>Card.to/business</strong> 
+            <strong>Instagram</strong> 
           </div>
         </div>
       </li>
@@ -251,7 +251,15 @@ const LandingPage = () => {
         <div className="d-flex align-items-center">
         <i className="bi bi-check2 me-3 text-success fs-5"></i>
         <div>
-            <strong>Flyer.to/event</strong> 
+            <strong>GitHub</strong> 
+          </div>
+        </div>
+      </li>
+      <li className="mb-3">
+        <div className="d-flex align-items-center">
+        <i className="bi bi-check2 me-3 text-success fs-5"></i>
+        <div>
+            <strong>Youtube</strong> 
           </div>
         </div>
       </li>
