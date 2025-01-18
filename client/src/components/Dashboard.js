@@ -306,7 +306,7 @@ const handleDragEnd = (event) => {
 
 
     const handleOpenPage = (pageId) => {
-        navigate(`/pages/${pageId}`);
+        window.open(`/pages/${pageId}`, '_blank');
     };
 
    return (
@@ -720,7 +720,7 @@ const handleDragEnd = (event) => {
                         variant={isCopied ? "success" : "outline-dark"} // Change to green when copied
                         size="sm" 
                         onClick={() => {
-                            navigator.clipboard.writeText(`https://final-project-sha-c27-1.onrender.com/pages/${currentPageId}`);
+                            navigator.clipboard.writeText(`https://astonishing-piroshki-4eba3c.netlify.app/pages/${currentPageId}`);
                             setIsCopied(true); // Set isCopied to true
                             setTimeout(() => setIsCopied(false), 2000); // Revert after 2 seconds
                         }}
@@ -789,7 +789,7 @@ const handleDragEnd = (event) => {
                         overflow: 'hidden', // Ensure the image stays within the container
                         margin: '0 auto', // Center the container horizontally
                         backgroundColor: '#f0f0f0', // Fallback background color
-                        display: 'flex', // Use Flexbox for centering
+                        display: 'flex', // 
                         justifyContent: 'center', // Center horizontally
                         alignItems: 'center', // Center vertically
                         backgroundImage: `url('https://i.ibb.co/BVCbLgf/Untitled-design-5.png')`, // Use profile image or fallback image

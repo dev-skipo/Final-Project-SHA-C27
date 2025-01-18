@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Container, Row, Col, Card, Button, Modal, Form } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { QRCodeSVG } from 'qrcode.react'; // Import QRCodeSVG
+import LoadingSpinner from './LoadingSpinner'; // loader
 
 const PageDetails = () => {
     const { id } = useParams();
@@ -126,7 +127,9 @@ const PageDetails = () => {
         }
     };
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) {
+        return <LoadingSpinner />; // LoadingSpinner component
+    }
 
     return (
         <Container

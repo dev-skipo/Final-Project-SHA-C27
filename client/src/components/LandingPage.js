@@ -54,7 +54,7 @@ const LandingPage = () => {
            
               <div className="col-md-6 mt-4 mt-md-0">
                 <img 
-                  src="https://i.ibb.co/xGLW20N/1-link.png" 
+                  src="https://i.ibb.co/bJwbTDX/1-link-17.png" 
                   alt="Hero" 
                   className="img-fluid rounded"
                 />
@@ -355,7 +355,7 @@ const LandingPage = () => {
           <AnimatedSection>
 
           <div className="d-flex flex-column align-items-center gap-3 rounded-pill">
-         
+         1
             <a 
               href="https://socialhackersacademy.org/" 
               target="_blank" 
