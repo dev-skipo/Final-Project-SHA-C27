@@ -306,7 +306,7 @@ const handleDragEnd = (event) => {
 
 
     const handleOpenPage = (pageId) => {
-        window.open(`/pages/${pageId}`, '_blank');
+        navigate(`/pages/${pageId}`);
     };
 
    return (
